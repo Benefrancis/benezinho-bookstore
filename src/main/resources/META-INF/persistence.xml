@@ -6,8 +6,8 @@
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
-            <property name="jakarta.persistence.jdbc.user" value=""/>
-            <property name="jakarta.persistence.jdbc.password" value=""/>
+            <property name="jakarta.persistence.jdbc.user" value="RM97373"/>
+            <property name="jakarta.persistence.jdbc.password" value="020288"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
