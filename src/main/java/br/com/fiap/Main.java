@@ -13,6 +13,8 @@ public class Main {
 
 
     private static final String BASE_URI = "http://localhost/";
+    public static final String DATABASE = "oracle";
+
 
     /**
      * Método responsavel por configurar e fornecer um servidor HTTP
@@ -45,7 +47,7 @@ public class Main {
      * Altera as configurações do persistence.xml
      * @return
      */
-    private static Map<String, Object> getProperties() {
+    public static Map<String, Object> getProperties() {
         Map<String, String> env = System.getenv();
         Map<String, Object> properties = new HashMap<>();
 

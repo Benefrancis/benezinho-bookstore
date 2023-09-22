@@ -27,7 +27,7 @@ public class Author {
 
     @ManyToMany(mappedBy = "writers")
     @OrderBy("name ASC")
-    Set<Book> obras;
+    Set<Book> obras = new LinkedHashSet<>();
 
 
     public Author addObra(Book b) {
