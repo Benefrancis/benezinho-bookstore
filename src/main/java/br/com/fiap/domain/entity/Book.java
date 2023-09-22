@@ -2,58 +2,58 @@ package br.com.fiap.domain.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="TB_BOOK", uniqueConstraints = {
-        @UniqueConstraint(name="UK_ISBN_BOOK", columnNames = "ISBN_BOOKS")
-})
+@Table(name = "TB_BOOK",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "UK_ISBN_BOOK", columnNames = "ISBN_BOOK")
+        }
+)
 public class Book {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_BOOK")
-    @Column(name="ID_BOOK")
+    @Column(name = "ID_BOOK")
     private Long id;
 
-    @Column(name="NM_BOOK", nullable = false)
-    private String nome;
+    @Column(name = "NM_BOOK", nullable = false)
+    private String name;
 
-    @Column(name="ISBN_BOOK", nullable = false)
+    @Column(name = "ISBN_BOOK", nullable = false)
     private String ISBN;
 
-    @Column(name="DT_LAUNCH")
+    @Column(name = "DT_LAUNCH")
     private LocalDateTime launch;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "TB_BOOK_AUTHOR",
             joinColumns = {
-                    @JoinColumn(name = "BOOK",
-                            referencedColumnName = "ID_BOOK",
-                            foreignKey = @ForeignKey(name="FK_BOOK_AUTHOR")
-                    )
+                    @JoinColumn(name = "BOOK", referencedColumnName = "ID_BOOK", foreignKey = @ForeignKey(name = "FK_BOOK_AUTHOR"))
             },
             inverseJoinColumns = {
-                    @JoinColumn(name = "AUTHOR",
-                            referencedColumnName = "ID_AUTHOR",
-                            foreignKey = @ForeignKey(name = "FK_AUTHOR_BOOK")
-                    )
+                    @JoinColumn(name = "AUTHOR", referencedColumnName = "ID_AUTHOR", foreignKey = @ForeignKey(name = "FK_AUTHOR_BOOK"))
             }
     )
-    @Column
     private Set<Author> writers;
 
-    public Book() {writers = new LinkedHashSet<>();};
-    public Book(Long id, String nome, LocalDateTime launch, String ISBN, Set<Author> writers) {
+    public Book() {
+        writers = new LinkedHashSet<>();
+    }
+
+    public Book(Long id, String name, String ISBN, LocalDateTime launch, Set<Author> writers) {
         this.id = id;
-        this.nome = nome;
+        this.name = name;
         this.ISBN = ISBN;
         this.launch = launch;
         this.writers = writers != null ? writers : new LinkedHashSet<>();
+    }
+
+    public Set<Author> getWriters() {
+        return Collections.unmodifiableSet(writers);
     }
 
     public Book addAuthor(Author a) {
@@ -66,50 +66,50 @@ public class Book {
         return this;
     }
 
-    public Set<Author> getWriters() {
-        return Collections.unmodifiableSet(writers);
-    }
-
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public Book setId(Long id) {
         this.id = id;
+        return this;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public Book setName(String name) {
+        this.name = name;
+        return this;
     }
 
     public String getISBN() {
         return ISBN;
     }
 
-    public void setISBN(String ISBN) {
+    public Book setISBN(String ISBN) {
         this.ISBN = ISBN;
+        return this;
     }
 
     public LocalDateTime getLaunch() {
         return launch;
     }
 
-    public void setLaunch(LocalDateTime launch) {
+    public Book setLaunch(LocalDateTime launch) {
         this.launch = launch;
+        return this;
     }
 
     @Override
     public String toString() {
         return "Book{" +
-                "\nid=" + id +
-                "\nnome='" + nome + '\'' +
-                "\nISBN='" + ISBN + '\'' +
-                "\nlaunch=" + launch +
-                "\nwriters=" + writers +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", ISBN='" + ISBN + '\'' +
+                ", launch=" + launch +
+                ", writers=" + writers +
                 '}';
     }
 }
