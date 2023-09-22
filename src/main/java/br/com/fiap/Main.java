@@ -41,7 +41,10 @@ public class Main {
         }
     }
 
-
+    /**
+     * Altera as configurações do persistence.xml
+     * @return
+     */
     private static Map<String, Object> getProperties() {
         Map<String, String> env = System.getenv();
         Map<String, Object> properties = new HashMap<>();
