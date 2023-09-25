@@ -19,7 +19,7 @@ public class Main {
 
     public static final String BASE_URI = "http://localhost/";
 
-    public static final String PERSISTENCE_UNIT = "maria-db";
+    public static final String PERSISTENCE_UNIT = "oracle";
 
     @PersistenceContext
     static EntityManager manager;
