@@ -2,7 +2,7 @@ package br.com.fiap;
 
 import br.com.fiap.infra.EntityManagerFactoryProvider;
 import br.com.fiap.infra.EntityManagerProvider;
-import br.com.fiap.infra.configuration.PasswordEncoder;
+import br.com.fiap.infra.configuration.Password;
 import br.com.fiap.infra.configuration.cors.CORSFilter;
 import br.com.fiap.infra.configuration.jwt.JsTokenFilterNeeded;
 import jakarta.inject.Singleton;
@@ -14,12 +14,9 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.process.internal.RequestScoped;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
 
@@ -36,7 +33,7 @@ public class Main {
         final ResourceConfig rc = new ResourceConfig()
                 // Configure container response filters (CORSFilter)
                 .register( CORSFilter.class )
-                .register( PasswordEncoder.class )
+                .register( Password.class )
                 // Configure container request filters (JsTokenFilterNeeded)
                 .register( JsTokenFilterNeeded.class )
                 .register(

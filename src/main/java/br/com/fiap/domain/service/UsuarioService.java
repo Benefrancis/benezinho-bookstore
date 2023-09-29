@@ -4,9 +4,11 @@ import br.com.fiap.domain.dto.UsuarioDTO;
 import br.com.fiap.domain.entity.Usuario;
 import br.com.fiap.domain.repository.UsuarioRepository;
 import br.com.fiap.infra.EntityManagerFactoryProvider;
-import br.com.fiap.infra.configuration.PasswordEncoder;
+import br.com.fiap.infra.configuration.Password;
 import jakarta.persistence.EntityManagerFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,10 +37,11 @@ public class UsuarioService implements Service<Usuario, Long> {
         }
     }
 
-    public Usuario autenticar(UsuarioDTO dto) {
-        PasswordEncoder passwordEncoder = new PasswordEncoder();
+    public Usuario autenticar(UsuarioDTO dto)  {
         Usuario a = repo.findByUsername( dto.username() );
-        boolean autenticado = passwordEncoder.checkPassword( dto.password(), a.getPassword() );
+
+        boolean autenticado = Password.check(dto.password(), a.getPassword());
+
         if (Objects.nonNull( a ) && autenticado) {
             return a;
         }
@@ -63,6 +66,7 @@ public class UsuarioService implements Service<Usuario, Long> {
 
     @Override
     public Usuario persist(Usuario a) {
+        a.setPassword(Password.encoder(a.getPassword()));
         return repo.persist( a );
     }
 

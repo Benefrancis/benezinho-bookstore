@@ -11,6 +11,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 @Path("/")
@@ -21,7 +23,7 @@ public class UsuarioResource {
     @POST
     @Path(value = "authorization")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response authorizationService(UsuarioDTO usuarioDTO) {
+    public Response authorizationService(UsuarioDTO usuarioDTO)   {
         if (Objects.isNull( usuarioDTO ))
             return Response.status( 401 ).entity( "User is required" ).build();
         if (usuarioDTO.username().isEmpty())

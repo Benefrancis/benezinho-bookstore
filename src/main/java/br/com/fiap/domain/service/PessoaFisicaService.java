@@ -51,6 +51,8 @@ public class PessoaFisicaService implements Service<PessoaFisica, Long> {
 
     @Override
     public PessoaFisica persist(PessoaFisica pessoa) {
+
+
         return repo.persist( pessoa );
     }
 }
